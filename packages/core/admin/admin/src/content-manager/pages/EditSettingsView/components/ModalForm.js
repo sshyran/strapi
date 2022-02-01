@@ -78,7 +78,7 @@ const ModalForm = ({ onChange }) => {
           })}
           name={meta}
           onChange={onChange}
-          value={get(fieldForm, meta, '')}
+          value={get(fieldForm, ['metadata', meta], '')}
           options={getSelectedItemSelectOptions(formType)}
         />
       </GridItem>
