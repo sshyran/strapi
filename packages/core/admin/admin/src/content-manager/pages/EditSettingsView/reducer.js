@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { arrayMoveItem } from '../../utils';
-import { formatLayout, getInputSize } from './utils/layout';
+import { formatLayout, getDefaultInputSize } from './utils/layout';
 
 const initialState = {
   fieldForm: {},
@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) =>
       }
       case 'ON_ADD_FIELD': {
         const newState = cloneDeep(state);
-        const size = getInputSize(
+        const size = getDefaultInputSize(
           get(newState, ['modifiedData', 'attributes', action.name, 'type'], '')
         );
         const listSize = get(newState, layoutPathEdit, []).length;
