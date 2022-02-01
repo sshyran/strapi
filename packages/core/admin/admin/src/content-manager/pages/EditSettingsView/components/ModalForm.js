@@ -97,7 +97,10 @@ const ModalForm = ({ onChange }) => {
     <Select
       value={fieldForm?.size}
       name="size"
-      label={getTrad('containers.SettingPage.editSettings.size.label', 'Fallback')}
+      label={formatMessage({
+        id: getTrad('containers.SettingPage.editSettings.size.label'),
+        defaultMessage: "Size"
+      })}
     >
       {FIELD_SIZES.map(([value, label]) => (
         <Option key={value} value={value}>
