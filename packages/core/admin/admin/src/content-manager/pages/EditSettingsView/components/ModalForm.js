@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import get from 'lodash/get';
 import { GridItem } from '@strapi/design-system/Grid';
+import { Select, Option } from '@strapi/design-system/Select';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { useLayoutDnd } from '../../../hooks';
@@ -8,6 +9,13 @@ import { createPossibleMainFieldsForModelsAndComponents, getInputProps } from '.
 import { makeSelectModelAndComponentSchemas } from '../../App/selectors';
 import getTrad from '../../../utils/getTrad';
 import GenericInput from './GenericInput';
+
+const FIELD_SIZES = [
+  [4, '33%'],
+  [6, '50%'],
+  [8, '66%'],
+  [12, '100%']
+];
 
 const ModalForm = ({ onChange }) => {
   const { formatMessage } = useIntl();
@@ -44,7 +52,7 @@ const ModalForm = ({ onChange }) => {
     [selectedField, componentsAndModelsPossibleMainFields, modifiedData]
   );
 
-  return formToDisplay.map(meta => {
+  const metaFields = formToDisplay.map(meta => {
     const formType = get(attributes, [selectedField, 'type']);
 
     if (
@@ -84,6 +92,25 @@ const ModalForm = ({ onChange }) => {
       </GridItem>
     );
   });
+
+  const sizeField = <GridItem col={6} key="size">
+    <Select
+      value={fieldForm?.size}
+      name="size"
+      label={getTrad('containers.SettingPage.editSettings.size.label', 'Fallback')}
+    >
+      {FIELD_SIZES.map(([value, label]) => (
+        <Option key={value} value={value}>
+          {label}
+        </Option>
+      ))}
+    </Select>
+  </GridItem>;
+
+  return <>
+    {metaFields}
+    {sizeField}
+         </>
 };
 
 export default ModalForm;
